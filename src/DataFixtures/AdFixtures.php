@@ -10,6 +10,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 class AdFixtures extends Fixture {
   public function load(ObjectManager $manager): void {
     $faker = \Faker\Factory::create();
+    $faker->addProvider(new \Bluemmb\Faker\PicsumPhotosProvider($faker));
 
     for ($i = 0; $i < 10; $i++) {
       $title = $faker->sentence(3);
@@ -20,7 +21,7 @@ class AdFixtures extends Fixture {
         ->setPrice(mt_rand(300, 1400))
         ->setIntroduction($faker->sentence(7))
         ->setContent($faker->paragraph(3))
-        ->setcoverImage($faker->imageUrl(400, 400))
+        ->setcoverImage($faker->imageUrl(1000, 500, true))
         ->setRooms(mt_rand(2, 5));
 
       $manager->persist($ad);
@@ -28,7 +29,7 @@ class AdFixtures extends Fixture {
       for ($j = 0; $j < mt_rand(3, 5); $j++) {
         $image = new Image();
         $image
-          ->setUrl($faker->imageUrl(1000, 500))
+          ->setUrl($faker->imageUrl(1000, 500, true))
           ->setCaption($faker->sentence(5))
           ->setAd($ad);
 
