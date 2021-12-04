@@ -21,7 +21,7 @@ class AdController extends AbstractController {
   }
 
   /**
-   * @Route("/ads/{id}", name="ads_show")
+   * @Route("/ads/{slug}", name="ads_show")
    */
   public function show(Ad $ad) {
     return new Response($ad->getTitle());
