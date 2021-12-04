@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ads{% endblock %}
+
+{% block body %}
+    {% for ad in ads %}
+        <div>
+            {{ ad.title }}
+        </div>
+        <img src="{{ ad.coverImage }}" alt="tets">
+    {% endfor %}
+{% endblock %}
