@@ -13,7 +13,7 @@ class AdFixtures extends Fixture {
     $slugify = new Slugify();
 
     for ($i = 0; $i < 10; $i++) {
-      $title = str_replace('.', '', $faker->sentence(3));
+      $title = $faker->sentence(3);
 
       $ad = new Ad();
       $ad
