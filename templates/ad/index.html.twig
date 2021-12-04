@@ -9,12 +9,12 @@
             <div class="col-md-4">
                 <div class="card bg-light mb-3">
                 <div class="card-header">
-                    <strong>{{ ad.price }}&euro; / nuit</strong> |
                     {% if ad.rooms > 1 %}
                         {{ ad.rooms }} chambres
                     {% else %}
                         {{ ad.rooms }} chambre
                     {% endif %}
+                    , <strong>{{ ad.price }}&euro; / nuit</strong>
                     <br>
                     <small>pas encore note</small>
                 </div>
