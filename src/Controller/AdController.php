@@ -21,9 +21,16 @@ class AdController extends AbstractController {
   }
 
   /**
+   * Showing single ad based on its slug
+   *
    * @Route("/ads/{slug}", name="ads_show")
+   *
+   * @param Ad $ad
+   * @return Response
    */
   public function show(Ad $ad) {
-    return new Response($ad->getTitle());
+    return $this->render('ad/show.html.twig', [
+      'ad' => $ad,
+    ]);
   }
 }
