@@ -3,18 +3,20 @@
 {% block title %}Nos magnifiques annonces{% endblock %}
 
 {% block body %}
-    <h1>Voici les annonces de note hotes!</h1>
+    <h1 class="mt-3 mb-3">Voici les annonces de nos hotes!</h1>
     <div class="row">
         {% for ad in ads %}
             <div class="col-md-4">
                 <div class="card bg-light mb-3">
                 <div class="card-header">
-                    {{ ad.price }} &euro; / nuit |
+                    <strong>{{ ad.price }}&euro; / nuit</strong> |
                     {% if ad.rooms > 1 %}
                         {{ ad.rooms }} chambres
                     {% else %}
                         {{ ad.rooms }} chambre
                     {% endif %}
+                    <br>
+                    <small>pas encore note</small>
                 </div>
                     <img style="height: 200px; width: 100%; display: block;" src="{{ ad.coverImage }}" alt="Card image">
 
