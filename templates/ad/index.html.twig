@@ -19,9 +19,13 @@
                         <br>
                         <small>pas encore note</small>
                     </div>
-                    <img style="height: 200px; width: 100%; display: block;" src="{{ ad.coverImage }}" alt="Card image">
+                    <a href="{{ path('ads_show', { 'slug': ad.slug }) }}">
+                        <img style="height: 200px; width: 100%; display: block;" src="{{ ad.coverImage }}" alt="Card image">
+                    </a>
                     <div class="card-body">
-                        <h4 class="card-title">{{ ad.title }}</h4>
+                        <a href="{{ path('ads_show', { 'slug': ad.slug }) }}">
+                            <h4 class="card-title">{{ ad.title }}</h4>
+                        </a>
                         <p class="card-text">{{ ad.introduction }}</p>
                         <a href="{{ path('ads_show', { 'slug': ad.slug }) }}" class="btn btn-primary float-right">En savoir plus !</a>
                     </div>
