@@ -12,15 +12,15 @@ class AdFixtures extends Fixture {
     $faker = \Faker\Factory::create();
     $faker->addProvider(new \Bluemmb\Faker\PicsumPhotosProvider($faker));
 
-    for ($i = 0; $i < 10; $i++) {
-      $title = $faker->sentence(3);
+    for ($i = 1; $i <= 10; $i++) {
+      $content = '<p>' . join('<p></p>', $faker->paragraphs(5)) . '</p>';
 
       $ad = new Ad();
       $ad
-        ->setTitle($title)
+        ->setTitle($faker->sentence(3))
         ->setPrice(mt_rand(300, 1400))
         ->setIntroduction($faker->sentence(7))
-        ->setContent($faker->paragraph(3))
+        ->setContent($content)
         ->setcoverImage($faker->imageUrl(1000, 500, true))
         ->setRooms(mt_rand(2, 5));
 
