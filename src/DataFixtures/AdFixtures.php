@@ -21,7 +21,7 @@ class AdFixtures extends Fixture {
         ->setPrice(mt_rand(300, 1400))
         ->setIntroduction($faker->sentence(7))
         ->setContent($content)
-        ->setcoverImage($faker->imageUrl(1000, 500, true))
+        ->setcoverImage($faker->imageUrl(1980, 700, true))
         ->setRooms(mt_rand(2, 5));
 
       $manager->persist($ad);
@@ -29,7 +29,7 @@ class AdFixtures extends Fixture {
       for ($j = 0; $j < mt_rand(3, 5); $j++) {
         $image = new Image();
         $image
-          ->setUrl($faker->imageUrl(1000, 500, true))
+          ->setUrl($faker->imageUrl(1980, 700, true))
           ->setCaption($faker->sentence(5))
           ->setAd($ad);
 
