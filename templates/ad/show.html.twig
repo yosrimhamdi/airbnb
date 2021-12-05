@@ -29,6 +29,10 @@
               {% for image in ad.images %}
                 <div class="carousel-item {% if loop.first %} active {% endif %}">                    
                   <img class="d-block w-100" src="{{ image.url }}" alt="Second slide">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h5>{{ ad.title }}</h5>
+                    <p>{{ image.caption }}</p>
+                  </div>
                 </div>
               {% endfor %}
             </div>
