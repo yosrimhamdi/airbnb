@@ -21,21 +21,13 @@
                 <li 
                   data-target="#carouselExampleIndicators" 
                   data-slide-to="{{ loop.index0 }}"
-                  {% if loop.first %}
-                    class="active"
-                  {% endif %}  
+                  {% if loop.first %} class="active" {% endif %}  
                 ></li>
               {% endfor %}
             </ol>
             <div class="carousel-inner">
               {% for image in ad.images %}
-                <div 
-                  {% if loop.first %}
-                    class="carousel-item active"
-                  {% else %}
-                    class="carousel-item"
-                  {% endif %}  
-                >                    
+                <div class="carousel-item {{ loop.first ? "active" }}">                    
                   <img class="d-block w-100" src="{{ image.url }}" alt="Second slide">
                 </div>
               {% endfor %}
