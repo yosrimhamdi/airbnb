@@ -33,7 +33,12 @@ class AdController extends AbstractController {
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      dd($ad);
+      $manager->persist($ad);
+      $manager->flush();
+
+      return $this->redirectToRoute('ads_show', [
+        'slug' => $ad->getSlug(),
+      ]);
     }
 
     return $this->render('ad/create.html.twig', [
