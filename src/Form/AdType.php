@@ -14,19 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class AdType extends AbstractType {
-  /**
-   * Return input config(label + placeholder)
-   *
-   * @param string $label
-   * @param string $placeholder
-   * @return array
-   */
-  public function getConfig($label, $placeholder) {
-    return [
-      'label' => $label,
-      'attr' => ['placeholder' => $placeholder],
-    ];
-  }
+  use ConfigTrait;
 
   public function buildForm(
     FormBuilderInterface $builder,
