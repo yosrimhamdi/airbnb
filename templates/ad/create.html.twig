@@ -23,19 +23,25 @@
   <p>Here, you can add your own iamges!</p>
   
   {{ form_widget(form) }}
-
 {% endblock %}
-
-{% block _ad_images_entry_label %}{% endblock %}
 
 {% block _ad_images_entry_widget %}
   <div class="form-group">
     <div class="row">
-      <div class="col">{{ form_widget(form.url) }}</div>
-      <div class="col">{{ form_widget(form.caption) }}</div>
+      <div class="col-10">
+        <div class="row">
+          <div class="col">{{ form_widget(form.url) }}</div>
+          <div class="col">{{ form_widget(form.caption) }}</div>
+        </div>
+      </div>
+      <div class="col-2">
+        <button type="button" class="btn btn-danger delete-btn" >X</button>
+      </div>
     </div>
   </div>
 {% endblock %}
+
+{% block _ad_images_entry_label %}{% endblock %}
 
 {% block javascripts %}
   <script >
@@ -47,6 +53,10 @@
       .replace(/__name__/g, nextIndex);
 
       $('#ad_images').append(template);
+
+      $('.delete-btn').click(function() {
+        $(this).closest('.form-group.row').remove();
+      })
     });
   </script>  
 {% endblock %}
