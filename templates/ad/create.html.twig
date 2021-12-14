@@ -44,9 +44,17 @@
 {% block _ad_images_entry_label %}{% endblock %}
 
 {% block javascripts %}
-  <script >
+  <script>
+    const onDeleteButtonClick = () => {
+      $('.delete-btn').click(function() {
+        $(this).closest('.form-group.row').remove();
+      });
+    }
+
+    onDeleteButtonClick();
+
     $('.add-image-btn').click(function() {
-      const nextIndex = $('#ad_images.form-group').length + 1;
+      const nextIndex = $('#ad_images > .form-group').length;
 
       const template = $('#ad_images')
       .data('prototype')
@@ -54,9 +62,7 @@
 
       $('#ad_images').append(template);
 
-      $('.delete-btn').click(function() {
-        $(this).closest('.form-group.row').remove();
-      })
+      onDeleteButtonClick();
     });
   </script>  
 {% endblock %}
