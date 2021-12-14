@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-trait ConfigTrait {
+trait InputConfigTrait {
   /**
    * Return input config(label + placeholder)
    *

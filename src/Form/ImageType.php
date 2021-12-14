@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ImageType extends AbstractType {
-  use ConfigTrait;
+  use InputConfigTrait;
 
   public function buildForm(
     FormBuilderInterface $builder,

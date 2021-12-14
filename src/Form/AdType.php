@@ -14,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class AdType extends AbstractType {
-  use ConfigTrait;
+  use InputConfigTrait;
 
   public function buildForm(
     FormBuilderInterface $builder,
