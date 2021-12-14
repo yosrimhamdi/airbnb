@@ -1,11 +1,3 @@
-{% block stylesheets %}
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
-{% endblock %}
-
-{% block javascripts %}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-{% endblock %}
-
 {% for label, messages in app.flashes %}
   <script>
     {% for message in messages %}
@@ -13,3 +5,4 @@
     {% endfor %}
   </script>
 {% endfor %}
+

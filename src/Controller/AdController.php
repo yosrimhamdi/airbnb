@@ -26,7 +26,7 @@ class AdController extends AbstractController {
   /**
    * @Route("/ads/new", name="ads_create")
    */
-  public function form(Request $request, EntityManagerInterface $manager) {
+  public function create(Request $request, EntityManagerInterface $manager) {
     $ad = new Ad();
 
     $form = $this->createForm(AdType::class, $ad);
@@ -49,7 +49,35 @@ class AdController extends AbstractController {
     }
 
     return $this->render('ad/create.html.twig', [
-      'adForm' => $form->createView(),
+      'form' => $form->createView(),
+    ]);
+  }
+
+  /**
+   * @Route("/ads/{slug}/edit", name="ads_edit")
+   */
+  public function edit(
+    Ad $ad,
+    Request $request,
+    EntityManagerInterface $manager
+  ) {
+    $form = $this->createForm(AdType::class, $ad);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $manager->persist($ad);
+      $manager->flush();
+
+      $this->addFlash('success', "ad {$ad->getTitle()} updated successfully!");
+
+      return $this->redirectToRoute('ads_show', [
+        'slug' => $ad->getSlug(),
+      ]);
+    }
+
+    return $this->render('ad/edit.html.twig', [
+      'form' => $form->createView(),
+      'ad' => $ad,
     ]);
   }
 

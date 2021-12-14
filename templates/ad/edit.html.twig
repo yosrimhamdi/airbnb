@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Ad Update{% endblock %}
+
+{% form_theme form 'themes/ad.html.twig' %}
+
+{% block body %}
+  <div class="container">
+    <h1>Updating the ad: {{ ad.title }}</h1>
+
+    {{ form_start(form) }}
+
+      {{ form_widget(form) }}      
+
+      <button class="btn btn-success" type="submit">Update</button>
+
+    {{ form_end(form) }}
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+  <script src="{{ asset('js/ad.js') }}"></script>
+{% endblock %}
