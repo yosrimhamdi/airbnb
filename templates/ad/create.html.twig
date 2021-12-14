@@ -54,11 +54,11 @@
     onDeleteButtonClick();
 
     $('.add-image-btn').click(function() {
-      const nextIndex = $('#ad_images > .form-group').length;
+      const index = $('#ad_images > .form-group').length;
 
       const template = $('#ad_images')
       .data('prototype')
-      .replace(/__name__/g, nextIndex);
+      .replace(/__name__/g, index);
 
       $('#ad_images').append(template);
 
