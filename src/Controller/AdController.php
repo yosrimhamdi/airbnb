@@ -18,8 +18,8 @@ class AdController extends AbstractController {
   public function index(AdRepository $repo): Response {
     $ads = $repo->findAll();
 
-    return $this->render('ad/index.html.twig', [
-      'ads' => $ads,
+    return $this->render("ad/index.html.twig", [
+      "ads" => $ads,
     ]);
   }
 
@@ -41,15 +41,15 @@ class AdController extends AbstractController {
       $manager->persist($ad);
       $manager->flush();
 
-      $this->addFlash('success', "ad {$ad->getTitle()} created successfully!");
+      $this->addFlash("success", "ad {$ad->getTitle()} created successfully!");
 
-      return $this->redirectToRoute('ads_show', [
-        'slug' => $ad->getSlug(),
+      return $this->redirectToRoute("ads_show", [
+        "slug" => $ad->getSlug(),
       ]);
     }
 
-    return $this->render('ad/create.html.twig', [
-      'form' => $form->createView(),
+    return $this->render("ad/create.html.twig", [
+      "form" => $form->createView(),
     ]);
   }
 
@@ -61,23 +61,30 @@ class AdController extends AbstractController {
     Request $request,
     EntityManagerInterface $manager
   ) {
+    $ad->setContent(preg_replace("/(<p>|<\/p>)/", "", $ad->getContent()));
+
     $form = $this->createForm(AdType::class, $ad);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
+      foreach ($ad->getImages() as $image) {
+        $image->setAd($ad);
+        $manager->persist($image);
+      }
+
       $manager->persist($ad);
       $manager->flush();
 
-      $this->addFlash('success', "ad {$ad->getTitle()} updated successfully!");
+      $this->addFlash("success", "ad {$ad->getTitle()} updated successfully!");
 
-      return $this->redirectToRoute('ads_show', [
-        'slug' => $ad->getSlug(),
+      return $this->redirectToRoute("ads_show", [
+        "slug" => $ad->getSlug(),
       ]);
     }
 
-    return $this->render('ad/edit.html.twig', [
-      'form' => $form->createView(),
-      'ad' => $ad,
+    return $this->render("ad/edit.html.twig", [
+      "form" => $form->createView(),
+      "ad" => $ad,
     ]);
   }
 
@@ -88,8 +95,8 @@ class AdController extends AbstractController {
    * @return Response
    */
   public function show(Ad $ad) {
-    return $this->render('ad/show.html.twig', [
-      'ad' => $ad,
+    return $this->render("ad/show.html.twig", [
+      "ad" => $ad,
     ]);
   }
 }
