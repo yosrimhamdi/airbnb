@@ -2,15 +2,20 @@
 
 namespace App\Entity;
 
-use App\Repository\AdRepository;
 use Cocur\Slugify\Slugify;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Repository\AdRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=AdRepository::class)
  * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity(
+ *  fields={"title"},
+ *  message="there is an ad with the same title"
+ * )
  */
 class Ad {
   /**
@@ -60,9 +65,8 @@ class Ad {
    */
   private $images;
 
-  public function __construct()
-  {
-      $this->images = new ArrayCollection();
+  public function __construct() {
+    $this->images = new ArrayCollection();
   }
 
   /**
@@ -151,30 +155,27 @@ class Ad {
   /**
    * @return Collection|Image[]
    */
-  public function getImages(): Collection
-  {
-      return $this->images;
+  public function getImages(): Collection {
+    return $this->images;
   }
 
-  public function addImage(Image $image): self
-  {
-      if (!$this->images->contains($image)) {
-          $this->images[] = $image;
-          $image->setAd($this);
-      }
+  public function addImage(Image $image): self {
+    if (!$this->images->contains($image)) {
+      $this->images[] = $image;
+      $image->setAd($this);
+    }
 
-      return $this;
+    return $this;
   }
 
-  public function removeImage(Image $image): self
-  {
-      if ($this->images->removeElement($image)) {
-          // set the owning side to null (unless already changed)
-          if ($image->getAd() === $this) {
-              $image->setAd(null);
-          }
+  public function removeImage(Image $image): self {
+    if ($this->images->removeElement($image)) {
+      // set the owning side to null (unless already changed)
+      if ($image->getAd() === $this) {
+        $image->setAd(null);
       }
+    }
 
-      return $this;
+    return $this;
   }
 }
