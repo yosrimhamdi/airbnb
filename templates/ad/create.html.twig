@@ -23,6 +23,8 @@
   <p>Here, you can add your own iamges!</p>
   
   {{ form_widget(form) }}
+
+  <input type="hidden" id="widgets-counter">
 {% endblock %}
 
 {% block _ad_images_entry_widget %}
@@ -54,7 +56,11 @@
     onDeleteButtonClick();
 
     $('.add-image-btn').click(function() {
-      const index = $('#ad_images > .form-group').length;
+      const index = +$('#widgets-counter').val();
+
+      $('#widgets-counter').val(index + 1);
+
+      console.log(index);
 
       const template = $('#ad_images')
       .data('prototype')
@@ -64,5 +70,13 @@
 
       onDeleteButtonClick();
     });
+
+    const setWidgetsCounter = () => {
+      const counter = $('#ad_images > .form-group').length;
+
+      $('#widgets-counter').val(counter);
+    }
+
+    setWidgetsCounter();
   </script>  
 {% endblock %}
