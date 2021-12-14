@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AdRepository::class)
@@ -62,6 +63,7 @@ class Ad {
 
   /**
    * @ORM\OneToMany(targetEntity=Image::class, mappedBy="ad", orphanRemoval=true)
+   * @Assert\Valid()
    */
   private $images;
 
