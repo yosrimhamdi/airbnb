@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class User {
   /**
@@ -63,9 +64,8 @@ class User {
    */
   private $ads;
 
-  public function __construct()
-  {
-      $this->ads = new ArrayCollection();
+  public function __construct() {
+    $this->ads = new ArrayCollection();
   }
 
   public function getId(): ?int {
@@ -155,30 +155,36 @@ class User {
   /**
    * @return Collection|Ad[]
    */
-  public function getAds(): Collection
-  {
-      return $this->ads;
+  public function getAds(): Collection {
+    return $this->ads;
   }
 
-  public function addAd(Ad $ad): self
-  {
-      if (!$this->ads->contains($ad)) {
-          $this->ads[] = $ad;
-          $ad->setUser($this);
-      }
+  public function addAd(Ad $ad): self {
+    if (!$this->ads->contains($ad)) {
+      $this->ads[] = $ad;
+      $ad->setUser($this);
+    }
 
-      return $this;
+    return $this;
   }
 
-  public function removeAd(Ad $ad): self
-  {
-      if ($this->ads->removeElement($ad)) {
-          // set the owning side to null (unless already changed)
-          if ($ad->getUser() === $this) {
-              $ad->setUser(null);
-          }
+  public function removeAd(Ad $ad): self {
+    if ($this->ads->removeElement($ad)) {
+      // set the owning side to null (unless already changed)
+      if ($ad->getUser() === $this) {
+        $ad->setUser(null);
       }
+    }
 
-      return $this;
+    return $this;
+  }
+
+  /**
+   * @ORM\PrePersist
+   * @ORM\PreUpdate
+   */
+  public function slugInit() {
+    $slugify = new Slugify();
+    $this->slug = $slugify->slugify($this->firstName . " " . $this->lastName);
   }
 }

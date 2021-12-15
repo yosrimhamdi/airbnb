@@ -14,19 +14,15 @@ class AppFixtures extends Fixture {
     $faker->addProvider(new \Bluemmb\Faker\PicsumPhotosProvider($faker));
 
     for ($i = 0; $i < 5; $i++) {
-      $firstName = $faker->firstNameMale();
-      $lastName = $faker->lastName();
-      $slug = strtolower($firstName . $lastName);
       $description = "<p>" . join("<p></p>", $faker->paragraphs()) . "</p>";
 
       $user = new User();
       $user
-        ->setFirstName($firstName)
-        ->setLastName($lastName)
+        ->setFirstName($faker->firstNameMale())
+        ->setLastName($faker->lastName())
         ->setEmail($faker->email())
         ->setIntroduction($faker->paragraph())
         ->setDescription($description)
-        ->setSlug($slug)
         ->setHash("1234");
 
       $manager->persist($user);
