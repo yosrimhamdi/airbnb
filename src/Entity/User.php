@@ -6,12 +6,13 @@ use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
-class User {
+class User implements UserInterface {
   /**
    * @ORM\Id
    * @ORM\GeneratedValue
@@ -186,5 +187,23 @@ class User {
   public function slugInit() {
     $slugify = new Slugify();
     $this->slug = $slugify->slugify($this->firstName . " " . $this->lastName);
+  }
+
+  public function getRoles() {
+    return ["USER_ROLE"];
+  }
+
+  public function getPassword() {
+    return $this->hash;
+  }
+
+  public function getUsername() {
+    return $this->email;
+  }
+
+  public function eraseCredentials() {
+  }
+
+  public function getSalt() {
   }
 }
