@@ -31,7 +31,7 @@ class AppFixtures extends Fixture {
         ->setIntroduction($faker->paragraph())
         ->setDescription($description)
         ->setPhoto($photo)
-        ->setHash($this->encoder->encodePassword($user, "password"));
+        ->setPassword($this->encoder->encodePassword($user, "password"));
 
       $manager->persist($user);
 
