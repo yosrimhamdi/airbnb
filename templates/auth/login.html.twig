@@ -4,26 +4,21 @@
 
 {% block body %}
     <div class="container">
-        <div class="row">
-            <div class="col-dm-3">&nbsp;</div>
-            <div class="col-md-6">
-                <div class="bg-light py-3 px-3">
-                    <h1>Login to AirBNB</h1>
-                    <form action="{{ path('auth_login') }}" method="post">
-                        <div class="form-group">
-                            <label for="">Email</label>
-                            <input type="email" id="username" name="_username" placeholder="Email..." class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Password</label>
-                            <input type="password" id="password" name="_password" placeholder="Password..." class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
+        <div class="bg-light py-3 px-3" style="width: 50%; margin: 0 auto;">
+            <h1>Login to AirBNB</h1>
+            <form action="{{ path('auth_login') }}" method="post">
+                <div class="form-group">
+                    <label for="">Email</label>
+                    <input type="email" id="username" name="_username" placeholder="Email..." class="form-control">
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="">Password</label>
+                    <input type="password" id="password" name="_password" placeholder="Password..." class="form-control">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
         </div>
     </div>
 {% endblock %}
