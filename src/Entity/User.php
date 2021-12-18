@@ -4,14 +4,17 @@ namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
-use App\Repository\UserRepository;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity("email")
  */
 class User implements UserInterface {
   /**
@@ -33,11 +36,13 @@ class User implements UserInterface {
 
   /**
    * @ORM\Column(type="string", length=255)
+   * @Assert\Email()
    */
   private $email;
 
   /**
    * @ORM\Column(type="text")
+   * @Assert\Length(min="4")
    */
   private $password;
 
@@ -48,6 +53,7 @@ class User implements UserInterface {
 
   /**
    * @ORM\Column(type="string", length=255)
+   * @Assert\NotBlank
    */
   private $introduction;
 
