@@ -8,21 +8,28 @@
         <div class="collapse navbar-collapse" id="navbarColor03">
         <ul class="navbar-nav me-auto">
             <li class="nav-item">
-              <a class="nav-link active" href="{{ path('homepage') }}">Home</a>
+              <a class="nav-link" href="{{ path('homepage') }}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="{{ path('ads_index') }}">All Ads</a>
+              <a class="nav-link" href="{{ path('ads_index') }}">All Ads</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="{{ path('ads_create') }}">Create Ad</a>
+              <a class="nav-link" href="{{ path('ads_create') }}">Create Ad</a>
             </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          {% if app.user %}
             <li class="nav-item">
-              {% if app.user %}
-                <a class="nav-link active" href="{{ path('auth_logout') }}">Logout</a>
-              {% else %}
-                <a class="nav-link active" href="{{ path('auth_login') }}">Login</a>
-              {% endif %}
+              <a class="nav-link" href="{{ path('auth_logout') }}">Logout</a>
             </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('auth_login') }}">Login</a>
+            </li>              
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('auth_register') }}">Register</a>
+            </li>              
+          {% endif %}
         </ul>
         </div>
     </div>
