@@ -120,6 +120,19 @@ class AccountController extends AbstractController {
   }
 
   /**
+   * Showing the current logged in user profile
+   *
+   * @Route("/account", name="account")
+   *
+   * @return Response
+   */
+  public function myAcccount() {
+    return $this->render("user/show.html.twig", [
+      "user" => $this->getUser(),
+    ]);
+  }
+
+  /**
    *
    * @Route("/logout", name="auth_logout")
    */
