@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -107,11 +108,9 @@ class AccountController extends AbstractController {
 
         $manager->flush();
 
-        $this->addFlash("success", "password updated. login again.");
-
         return $this->redirectToRoute("auth_logout");
       } else {
-        $this->addFlash("error", "wrong password");
+        $form->get("oldPassword")->addError(new FormError("wrong password."));
       }
     }
 
