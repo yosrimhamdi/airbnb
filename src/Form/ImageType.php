@@ -9,25 +9,23 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ImageType extends AbstractType {
-  use InputConfigTrait;
-
+class ImageType extends ApplicationType {
   public function buildForm(
     FormBuilderInterface $builder,
     array $options
   ): void {
     $builder
-      ->add('url', UrlType::class, $this->getConfig('Image Url', 'Url'))
+      ->add("url", UrlType::class, $this->getConfig("Image Url", "Url"))
       ->add(
-        'caption',
+        "caption",
         TextType::class,
-        $this->getConfig('Caption', 'Image description')
+        $this->getConfig("Caption", "Image description")
       );
   }
 
   public function configureOptions(OptionsResolver $resolver): void {
     $resolver->setDefaults([
-      'data_class' => Image::class,
+      "data_class" => Image::class,
     ]);
   }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
-trait InputConfigTrait {
+use Symfony\Component\Form\AbstractType;
+
+class ApplicationType extends AbstractType {
   /**
    * Return input config(label + placeholder)
    *
@@ -12,8 +14,8 @@ trait InputConfigTrait {
    */
   public function getConfig($label, $placeholder) {
     return [
-      'label' => $label,
-      'attr' => ['placeholder' => $placeholder],
+      "label" => $label,
+      "attr" => ["placeholder" => $placeholder],
     ];
   }
 }

@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Ad;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -13,54 +12,52 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-class AdType extends AbstractType {
-  use InputConfigTrait;
-
+class AdType extends ApplicationType {
   public function buildForm(
     FormBuilderInterface $builder,
     array $options
   ): void {
     $builder
       ->add(
-        'title',
+        "title",
         TextType::class,
-        $this->getConfig('Titre', "Titre de l'annonce")
+        $this->getConfig("Titre", "Titre de l'annonce")
       )
       ->add(
-        'coverImage',
+        "coverImage",
         UrlType::class,
         $this->getConfig('Image de l\'annonce', "URL de l'image")
       )
       ->add(
-        'introduction',
+        "introduction",
         TextType::class,
-        $this->getConfig('Intro', "Into de l'annonce")
+        $this->getConfig("Intro", "Into de l'annonce")
       )
       ->add(
-        'content',
+        "content",
         TextareaType::class,
-        $this->getConfig('Description', "description de l'annonce")
+        $this->getConfig("Description", "description de l'annonce")
       )
       ->add(
-        'rooms',
+        "rooms",
         IntegerType::class,
-        $this->getConfig('Nombre de chambres', 'Nombre de chambres')
+        $this->getConfig("Nombre de chambres", "Nombre de chambres")
       )
       ->add(
-        'price',
+        "price",
         MoneyType::class,
-        $this->getConfig('Prix par nuit', 'Prix')
+        $this->getConfig("Prix par nuit", "Prix")
       )
-      ->add('images', CollectionType::class, [
-        'entry_type' => ImageType::class,
-        'allow_add' => true,
-        'allow_delete' => true,
+      ->add("images", CollectionType::class, [
+        "entry_type" => ImageType::class,
+        "allow_add" => true,
+        "allow_delete" => true,
       ]);
   }
 
   public function configureOptions(OptionsResolver $resolver): void {
     $resolver->setDefaults([
-      'data_class' => Ad::class,
+      "data_class" => Ad::class,
     ]);
   }
 }
