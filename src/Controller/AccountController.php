@@ -85,7 +85,7 @@ class AccountController extends AbstractController {
   }
 
   /**
-   * @Route("account/password/update", name="auth_password_update")
+   * @Route("account/password/update", name="password_update")
    */
   public function passwordUpdate(
     Request $request,
