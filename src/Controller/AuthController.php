@@ -2,15 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\PasswordUpdate;
 use App\Entity\User;
+use App\Form\PasswordUpdateType;
 use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AuthController extends AbstractController {
   /**
@@ -31,6 +33,7 @@ class AuthController extends AbstractController {
    * @Route("/logout", name="auth_logout")
    */
   public function logout() {
+    // forward flashes!!!
   }
 
   /**
@@ -57,6 +60,46 @@ class AuthController extends AbstractController {
     }
 
     return $this->render("auth/register.html.twig", [
+      "form" => $form->createView(),
+    ]);
+  }
+
+  /**
+   * @Route("/password/update", name="auth_password_update")
+   */
+  public function passwordUpdate(
+    Request $request,
+    EntityManagerInterface $manager,
+    UserPasswordEncoderInterface $encoder
+  ) {
+    $user = $this->getUser();
+    $passwordUpdate = new PasswordUpdate();
+
+    $form = $this->createForm(PasswordUpdateType::class, $passwordUpdate);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $isValid = $encoder->isPasswordValid(
+        $user,
+        $passwordUpdate->getOldPassword()
+      );
+
+      if ($isValid) {
+        $user->setPassword(
+          $encoder->encodePassword($user, $passwordUpdate->getNewPassword())
+        );
+
+        $manager->flush();
+
+        $this->addFlash("success", "password updated. login again.");
+
+        return $this->redirectToRoute("auth_logout");
+      } else {
+        $this->addFlash("error", "wrong password");
+      }
+    }
+
+    return $this->render("auth/password-update.html.twig", [
       "form" => $form->createView(),
     ]);
   }
