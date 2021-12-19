@@ -53,13 +53,11 @@
               <img src="http://placehold.it/64x64" alt="Photo of Joseph">
             </div>
             <div class="col">
-              <h3>Joseph</h3>
-              <span class="badge badge-primary">3 annonces</span>
+              <h3>{{ ad.user.firstName }}</h3>
+              <span class="badge badge-primary">{{ ad.user.ads | length }} annonces</span>
             </div>
           </div>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit eligendi asperiores aspernatur. Error quasi provident id debitis iure, ab omnis.</p>
-          <p>Officiis harum, recusandae tempora doloribus, voluptatibus eius tempore officia aperiam necessitatibus ipsam architecto placeat cum, sit ipsa doloremque reiciendis beatae.</p>
-          <p>Fuga, deserunt magni commodi quisquam incidunt unde esse modi consectetur dolores molestias necessitatibus repellendus, quae nobis repudiandae provident. Doloremque, voluptates!</p>
+          <div>{{ ad.user.description | raw }}</div>
         </div>
       </div>
     </div>
