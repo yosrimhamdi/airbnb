@@ -41,3 +41,7 @@
   max-width: 80px;
   aspect-ratio: 1;
 }
+
+.avatar--small {
+  max-width: 35px;
+}

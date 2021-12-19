@@ -59,6 +59,19 @@ class AccountController extends AbstractController {
   }
 
   /**
+   * Showing the current logged in user profile
+   *
+   * @Route("/account/profile", name="my_account")
+   *
+   * @return Response
+   */
+  public function myAcccount() {
+    return $this->render("user/show.html.twig", [
+      "user" => $this->getUser(),
+    ]);
+  }
+
+  /**
    * @Route("/account/profile/update", name="profile_update")
    */
   public function profile(
@@ -123,21 +136,8 @@ class AccountController extends AbstractController {
   }
 
   /**
-   * Showing the current logged in user profile
    *
-   * @Route("/account/profile", name="account_profile")
-   *
-   * @return Response
-   */
-  public function myAcccount() {
-    return $this->render("user/show.html.twig", [
-      "user" => $this->getUser(),
-    ]);
-  }
-
-  /**
-   *
-   * @Route("/logout", name="auth_logout")
+   * @Route("/logout", name="logout")
    */
   public function logout() {
   }

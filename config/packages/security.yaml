@@ -19,10 +19,10 @@ security:
       form_login:
         login_path: auth_login
         check_path: auth_login
-        default_target_path: account_profile
+        default_target_path: my_account
 
       logout:
-        path: auth_logout
+        path: logout
         target: auth_login
       # activate different ways to authenticate
       # https://symfony.com/doc/current/security.html#firewalls-authentication
