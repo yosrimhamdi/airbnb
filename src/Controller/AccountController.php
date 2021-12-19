@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
-use App\Entity\PasswordUpdate;
 use App\Entity\User;
-use App\Form\PasswordUpdateType;
+use App\Form\ProfileType;
+use App\Entity\PasswordUpdate;
 use App\Form\RegistrationType;
+use App\Form\PasswordUpdateType;
+use Symfony\Component\Form\FormError;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -58,7 +59,7 @@ class AccountController extends AbstractController {
   }
 
   /**
-   * @Route("/account/profile", name="profile_update")
+   * @Route("/account/profile/update", name="profile_update")
    */
   public function profile(
     Request $request,
@@ -74,6 +75,8 @@ class AccountController extends AbstractController {
       $manager->flush();
 
       $this->addFlash("success", "profile updated.");
+
+      return $this->redirectToRoute("account_profile");
     }
 
     return $this->render("profile/index.html.twig", [
@@ -122,7 +125,7 @@ class AccountController extends AbstractController {
   /**
    * Showing the current logged in user profile
    *
-   * @Route("/account", name="account")
+   * @Route("/account/profile", name="account_profile")
    *
    * @return Response
    */
