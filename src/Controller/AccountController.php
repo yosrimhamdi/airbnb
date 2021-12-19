@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class AuthController extends AbstractController {
+class AccountController extends AbstractController {
   /**
    * @Route("/login", name="auth_login")
    */
@@ -22,18 +22,10 @@ class AuthController extends AbstractController {
     $error = $util->getLastAuthenticationError();
     $username = $util->getLastUsername();
 
-    return $this->render("auth/login.html.twig", [
+    return $this->render("account/login.html.twig", [
       "error" => $error,
       "username" => $username,
     ]);
-  }
-
-  /**
-   *
-   * @Route("/logout", name="auth_logout")
-   */
-  public function logout() {
-    // forward flashes!!!
   }
 
   /**
@@ -59,13 +51,37 @@ class AuthController extends AbstractController {
       return $this->redirectToRoute("auth_login");
     }
 
-    return $this->render("auth/register.html.twig", [
+    return $this->render("account/register.html.twig", [
       "form" => $form->createView(),
     ]);
   }
 
   /**
-   * @Route("/password/update", name="auth_password_update")
+   * @Route("/account/profile", name="profile_update")
+   */
+  public function profile(
+    Request $request,
+    EntityManagerInterface $manager
+  ): Response {
+    $user = $this->getUser();
+
+    $form = $this->createForm(ProfileType::class, $user);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $manager->persist($user);
+      $manager->flush();
+
+      $this->addFlash("success", "profile updated.");
+    }
+
+    return $this->render("profile/index.html.twig", [
+      "form" => $form->createView(),
+    ]);
+  }
+
+  /**
+   * @Route("account/password/update", name="auth_password_update")
    */
   public function passwordUpdate(
     Request $request,
@@ -99,8 +115,15 @@ class AuthController extends AbstractController {
       }
     }
 
-    return $this->render("auth/password-update.html.twig", [
+    return $this->render("account/password-update.html.twig", [
       "form" => $form->createView(),
     ]);
+  }
+
+  /**
+   *
+   * @Route("/logout", name="auth_logout")
+   */
+  public function logout() {
   }
 }
