@@ -54,7 +54,9 @@
               <img src="{{ author.photo }}" alt="Photo of {{ author.fullName }}" class="avatar">
             </div>
             <div class="col">
-              <h3>{{ author.fullName }}</h3>
+              <a href="{{ path("user_show", { "slug": author.slug }) }}">
+                <h3>{{ author.fullName }}</h3>
+              </a>
               <span class="badge badge-primary">{{ author.ads | length }} annonces</span>
             </div>
           </div>

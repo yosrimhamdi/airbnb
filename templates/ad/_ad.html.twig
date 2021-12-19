@@ -1,0 +1,25 @@
+{% set url = path('ads_show', { 'slug': ad.slug }) %}
+<div class="col-md-4">
+    <div class="card bg-light mb-3">
+    <div class="card-header" style="text-align: center;">
+        {% if ad.rooms > 1 %}
+            {{ ad.rooms }} chambres
+        {% else %}
+            {{ ad.rooms }} chambre
+        {% endif %}
+        , <strong>{{ ad.price }}&euro; / nuit</strong>
+        <br>
+        <small>pas encore note</small>
+    </div>
+    <a href="{{ url }}">
+        <img style="height: 200px; width: 100%; display: block;" src="{{ ad.coverImage }}" alt="Card image">
+    </a>
+    <div class="card-body">
+        <h4 class="card-title">
+            <a href="{{ url }}">{{ ad.title }}</a>
+        </h4>
+        <p class="card-text">{{ ad.introduction }}</p>
+        <a href="{{ url }}" class="btn btn-primary float-right">En savoir plus !</a>
+    </div>
+    </div>
+</div>
