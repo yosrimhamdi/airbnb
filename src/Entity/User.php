@@ -210,4 +210,8 @@ class User implements UserInterface {
 
   public function getSalt() {
   }
+
+  public function getFullName() {
+    return "{$this->firstName} {$this->lastName}";
+  }
 }

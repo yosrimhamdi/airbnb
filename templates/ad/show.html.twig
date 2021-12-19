@@ -50,14 +50,15 @@
         <div class="col">
           <div class="row">
             <div class="col-4">
-              <img src="http://placehold.it/64x64" alt="Photo of Joseph">
+              {% set author = ad.user %}
+              <img src="{{ author.photo }}" alt="Photo of {{ author.fullName }}">
             </div>
             <div class="col">
-              <h3>{{ ad.user.firstName }}</h3>
-              <span class="badge badge-primary">{{ ad.user.ads | length }} annonces</span>
+              <h3>{{ author.fullName }}</h3>
+              <span class="badge badge-primary">{{ author.ads | length }} annonces</span>
             </div>
           </div>
-          <div>{{ ad.user.description | raw }}</div>
+          <div>{{ author.description | raw }}</div>
         </div>
       </div>
     </div>
