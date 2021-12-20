@@ -108,4 +108,26 @@ class AdController extends AbstractController {
       "ad" => $ad,
     ]);
   }
+
+  /**
+   * Deleting a specific ad
+   *
+   * @Route("ads/{slug}/delete", name="ads_delete")
+   * @Security(
+   *  "is_granted('ROLE_USER') and user === ad.getUser()",
+   *  message="you don't own this ad"
+   * )
+   *
+   * @param Ad $ad
+   * @param EntityManagerInterface $manager
+   * @return Response
+   */
+  public function deleteAd(Ad $ad, EntityManagerInterface $manager) {
+    $manager->remove($ad);
+    $manager->flush();
+
+    $this->addFlash("info", "Ad {$ad->getTitle()} has been deleted.");
+
+    return $this->redirectToRoute("my_account");
+  }
 }

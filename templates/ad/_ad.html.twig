@@ -22,6 +22,7 @@
             <a href="{{ url }}" class="btn btn-primary">En savoir plus !</a>
             {% if app.user is same as(ad.user) %}
                 <a href="{{ path('ads_edit', { 'slug': ad.slug }) }}" class="btn btn-primary">Edit</a>
+                <a onclick="return confirm('are you sure want to delete this ad?')" href="{{ path('ads_delete', { 'slug': ad.slug }) }}" class="btn btn-danger">Remove</a>
             {% endif %}
         </div>
     </div>
