@@ -9,6 +9,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdController extends AbstractController {
@@ -25,6 +27,7 @@ class AdController extends AbstractController {
 
   /**
    * @Route("/ads/new", name="ads_create")
+   * @IsGranted("ROLE_USER")
    */
   public function create(Request $request, EntityManagerInterface $manager) {
     $ad = new Ad();
@@ -57,6 +60,10 @@ class AdController extends AbstractController {
 
   /**
    * @Route("/ads/{slug}/edit", name="ads_edit")
+   * @Security(
+   *  "is_granted('ROLE_USER') and user === ad.getUser()",
+   *  message="Your not the owner of this ad"
+   * )
    */
   public function edit(
     Ad $ad,
