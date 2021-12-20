@@ -3,6 +3,7 @@ namespace App\DataFixtures;
 use App\Entity\Ad;
 use App\Entity\User;
 use App\Entity\Image;
+use App\Entity\Role;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -17,6 +18,26 @@ class AppFixtures extends Fixture {
   public function load(ObjectManager $manager): void {
     $faker = \Faker\Factory::create();
     $faker->addProvider(new \Bluemmb\Faker\PicsumPhotosProvider($faker));
+
+    $adminRole = new Role();
+    $adminRole->setTitle("ROLE_ADMIN");
+
+    $manager->persist($adminRole);
+
+    $adminUser = new User();
+    $adminUser
+      ->setFirstName("Yosri")
+      ->setLastName("Mhamdi")
+      ->setEmail("yosri@mhamdi.co")
+      ->setPassword($this->encoder->encodePassword($adminUser, "password"))
+      ->setIntroduction($faker->paragraph())
+      ->setDescription("<p>" . join("<p></p>", $faker->paragraphs()) . "</p>")
+      ->addUserRole($adminRole)
+      ->setPhoto(
+        "https://scontent.ftun5-1.fna.fbcdn.net/v/t39.30808-6/223663076_4085488201569410_3514209925264326844_n.jpg?_nc_cat=110&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=7mCqatC3pH8AX-HD6SY&tn=TlbynOGAs03aQ3h4&_nc_ht=scontent.ftun5-1.fna&oh=00_AT-MpWH23VUKWYOimzsz0LHqs9_pHG6t_rl5iMicFQicgg&oe=61C41530"
+      );
+
+    $manager->persist($adminUser);
 
     for ($i = 0; $i < 5; $i++) {
       $description = "<p>" . join("<p></p>", $faker->paragraphs()) . "</p>";
