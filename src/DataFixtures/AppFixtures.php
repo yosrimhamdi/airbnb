@@ -1,6 +1,7 @@
 <?php
 namespace App\DataFixtures;
 use App\Entity\Ad;
+use App\Entity\Booking;
 use App\Entity\User;
 use App\Entity\Image;
 use App\Entity\Role;
@@ -39,6 +40,8 @@ class AppFixtures extends Fixture {
 
     $manager->persist($adminUser);
 
+    $users = [];
+
     for ($i = 0; $i < 5; $i++) {
       $description = "<p>" . join("<p></p>", $faker->paragraphs()) . "</p>";
 
@@ -54,32 +57,50 @@ class AppFixtures extends Fixture {
         ->setPhoto($photo)
         ->setPassword($this->encoder->encodePassword($user, "password"));
 
+      $users[] = $user;
+
       $manager->persist($user);
+    }
 
-      for ($j = 1; $j <= mt_rand(0, 15); $j++) {
-        $content = "<p>" . join("<p></p>", $faker->paragraphs(5)) . "</p>";
+    for ($j = 1; $j <= mt_rand(0, 15); $j++) {
+      $content = "<p>" . join("<p></p>", $faker->paragraphs(5)) . "</p>";
 
-        $ad = new Ad();
-        $ad
-          ->setTitle($faker->sentence(3))
-          ->setPrice(mt_rand(300, 1400))
-          ->setIntroduction($faker->sentence(7))
-          ->setContent($content)
-          ->setcoverImage($faker->imageUrl(1980, 700, true))
-          ->setRooms(mt_rand(2, 5))
-          ->setUser($user);
+      $ad = new Ad();
+      $ad
+        ->setTitle($faker->sentence(3))
+        ->setPrice(mt_rand(300, 1400))
+        ->setIntroduction($faker->sentence(7))
+        ->setContent($content)
+        ->setcoverImage($faker->imageUrl(1980, 700, true))
+        ->setRooms(mt_rand(2, 5))
+        ->setUser($users[mt_rand(0, count($users) - 1)]);
 
-        $manager->persist($ad);
+      $manager->persist($ad);
 
-        for ($k = 0; $k < mt_rand(3, 5); $k++) {
-          $image = new Image();
-          $image
-            ->setUrl($faker->imageUrl(1980, 700, true))
-            ->setCaption($faker->sentence(5))
-            ->setAd($ad);
+      for ($k = 0; $k < mt_rand(3, 5); $k++) {
+        $image = new Image();
+        $image
+          ->setUrl($faker->imageUrl(1980, 700, true))
+          ->setCaption($faker->sentence(5))
+          ->setAd($ad);
 
-          $manager->persist($image);
-        }
+        $manager->persist($image);
+      }
+
+      for ($p = 0; $p < mt_rand(0, 5); $p++) {
+        $startDate = new \DateTime();
+        $endDate = new \DateTime();
+
+        $booking = new Booking();
+        $booking
+          ->setAd($ad)
+          ->setBooker($users[mt_rand(0, count($users) - 1)])
+          ->setStartDate($startDate)
+          ->setEndDate($endDate)
+          ->setCreatedAt(new \DateTime())
+          ->setAmount($ad->getPrice() * mt_rand(1, 7));
+
+        $manager->persist($booking);
       }
     }
 
