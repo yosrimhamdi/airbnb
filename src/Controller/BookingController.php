@@ -9,8 +9,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BookingController extends AbstractController {
   /**
@@ -28,13 +28,7 @@ class BookingController extends AbstractController {
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $nbrNights = $booking->getStartDate()->diff($booking->getEndDate())->days;
-
-      $booking
-        ->setBooker($this->getUser())
-        ->setAd($ad)
-        ->setCreatedAt(new \DateTime())
-        ->setAmount($nbrNights * $ad->getPrice());
+      $booking->setBooker($this->getUser())->setAd($ad);
 
       $manager->persist($booking);
       $manager->flush();

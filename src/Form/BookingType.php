@@ -29,7 +29,9 @@ class BookingType extends ApplicationType {
       ->add(
         "comment",
         TextareaType::class,
-        $this->getConfig("Comment", "Write  a comment")
+        $this->getConfig("Comment", "Write  a comment", [
+          "required" => false,
+        ])
       );
   }
 
