@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class BookingType extends ApplicationType {
   public function buildForm(
@@ -24,6 +25,11 @@ class BookingType extends ApplicationType {
         "endDate",
         DateType::class,
         $this->getConfig("End date", "your last night")
+      )
+      ->add(
+        "comment",
+        TextareaType::class,
+        $this->getConfig("Comment", "Write  a comment")
       );
   }
 

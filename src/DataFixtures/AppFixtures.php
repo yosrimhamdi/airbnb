@@ -100,7 +100,8 @@ class AppFixtures extends Fixture {
           ->setStartDate($startDate)
           ->setEndDate($endDate)
           ->setCreatedAt($createdAt)
-          ->setAmount($ad->getPrice() * mt_rand(1, 7));
+          ->setAmount($ad->getPrice() * mt_rand(1, 7))
+          ->setComment($faker->paragraph());
 
         $manager->persist($booking);
       }
