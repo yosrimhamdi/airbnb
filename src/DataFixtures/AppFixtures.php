@@ -40,7 +40,7 @@ class AppFixtures extends Fixture {
 
     $manager->persist($adminUser);
 
-    $users = [];
+    $users = [$adminUser];
 
     for ($i = 0; $i < 5; $i++) {
       $description = "<p>" . join("<p></p>", $faker->paragraphs()) . "</p>";
