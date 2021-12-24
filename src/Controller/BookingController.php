@@ -34,7 +34,7 @@ class BookingController extends AbstractController {
         ->setBooker($this->getUser())
         ->setAd($ad)
         ->setCreatedAt(new \DateTime())
-        ->setAmout($nbrNights * $ad->getAmount());
+        ->setAmount($nbrNights * $ad->getPrice());
 
       $manager->persist($booking);
       $manager->flush();
