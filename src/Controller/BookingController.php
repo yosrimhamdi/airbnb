@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Ad;
 use App\Entity\Booking;
 use App\Form\BookingType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,7 +17,11 @@ class BookingController extends AbstractController {
    * @IsGranted("ROLE_USER")
    * @Route("/ads/{slug}/booking", name="booking_create")
    */
-  public function book(Ad $ad, Request $request): Response {
+  public function book(
+    Ad $ad,
+    Request $request,
+    EntityManagerInterface $manager
+  ): Response {
     $booking = new Booking();
 
     $form = $this->createForm(BookingType::class, $booking);
@@ -31,6 +36,9 @@ class BookingController extends AbstractController {
         ->setAd($ad)
         ->setCreatedAt(new \DateTime())
         ->setAmout($nbrNights * $ad->getAmount());
+
+      $manager->persist($booking);
+      $manager->flush();
     }
 
     return $this->render("booking/book.html.twig", [
