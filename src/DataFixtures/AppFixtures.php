@@ -88,8 +88,10 @@ class AppFixtures extends Fixture {
       }
 
       for ($p = 0; $p < mt_rand(0, 5); $p++) {
-        $startDate = new \DateTime();
-        $endDate = new \DateTime();
+        $createdAt = $faker->dateTimeBetween("-3 months");
+        $startDate = $faker->dateTimeBetween($createdAt);
+        $nbrDays = mt_rand(2, 7);
+        $endDate = (clone $startDate)->modify("+$nbrDays days");
 
         $booking = new Booking();
         $booking
@@ -97,7 +99,7 @@ class AppFixtures extends Fixture {
           ->setBooker($users[mt_rand(0, count($users) - 1)])
           ->setStartDate($startDate)
           ->setEndDate($endDate)
-          ->setCreatedAt(new \DateTime())
+          ->setCreatedAt($createdAt)
           ->setAmount($ad->getPrice() * mt_rand(1, 7));
 
         $manager->persist($booking);
