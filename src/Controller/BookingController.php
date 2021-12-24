@@ -26,13 +26,11 @@ class BookingController extends AbstractController {
       $nbrNights = date_diff($booking->getStartDate(), $booking->getEndDate())
         ->days;
 
-      dump($booking);
-
-      //   $booking
-      //     ->setBooker($this->getUser())
-      //     ->setAd($ad)
-      //     ->setCreatedAt(new \DateTime())
-      //     ->setAmout($nbrNights * $ad->getAmount());
+      $booking
+        ->setBooker($this->getUser())
+        ->setAd($ad)
+        ->setCreatedAt(new \DateTime())
+        ->setAmout($nbrNights * $ad->getAmount());
     }
 
     return $this->render("booking/book.html.twig", [
