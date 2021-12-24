@@ -28,8 +28,7 @@ class BookingController extends AbstractController {
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $nbrNights = date_diff($booking->getStartDate(), $booking->getEndDate())
-        ->days;
+      $nbrNights = $booking->getStartDate()->diff($booking->getEndDate())->days;
 
       $booking
         ->setBooker($this->getUser())
