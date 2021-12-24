@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Book {{ ad.title }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-3 mb-5">Book the {{ ad.title }}</h1>
+        <p>Your are going to book one of the <strong>{{ ad.user.fullName }}</strong>, indicate the dates and leave everying to us</p>
+
+        {{ form_start(form) }}
+            <h2>Please indicate the start and end dates.</h2>
+            {{form_widget(form)}}
+            <input type="hidden" value="{{ ad.price }}" id="ad-price-per-night">
+            
+            <h4 class="mt-3">
+                <span id="days">0</span> nights / {{ ad.price }} $ per night
+            </h4>
+            <h4>Total amount: <span id="total-price">0</span> $</h4>
+
+            <button type="submit" class="btn btn-success">Book</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset("/js/booking.js") }}"></script>
+{% endblock %}
