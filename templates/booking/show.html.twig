@@ -4,12 +4,11 @@
 {% set author = booking.ad.user %}
 {% set ad = booking.ad %}
 
-
 {% block body %}
     <div class="container mt-4">
         <h1 class="mb-4">Your Booking (N° {{ booking.id }})</h1>
 
-        {% if app.flashes and app.flashes.bookSuccess %}
+        {% if 'bookSuccess' in app.flashes | keys %}
             <div class="alert alert-success">
                 <h4 class="alert-heading">Congrants!</h4>
                 <p>
