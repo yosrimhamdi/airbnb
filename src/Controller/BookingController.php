@@ -36,9 +36,7 @@ class BookingController extends AbstractController {
 
             $this->addFlash('bookSuccess', true);
 
-            return $this->redirectToRoute('booking_show', [
-                'id' => $booking->getId(),
-            ]);
+            return redirectToRoute('booking_show', ['id' => $booking->getId()]);
         }
 
         return $this->render('booking/book.html.twig', [
