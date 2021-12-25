@@ -13,30 +13,30 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BookingController extends AbstractController {
-  /**
-   * @IsGranted("ROLE_USER")
-   * @Route("/ads/{slug}/booking", name="booking_create")
-   */
-  public function book(
-    Ad $ad,
-    Request $request,
-    EntityManagerInterface $manager
-  ): Response {
-    $booking = new Booking();
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route("/ads/{slug}/booking", name="booking_create")
+     */
+    public function book(
+        Ad $ad,
+        Request $request,
+        EntityManagerInterface $manager
+    ): Response {
+        $booking = new Booking();
 
-    $form = $this->createForm(BookingType::class, $booking);
-    $form->handleRequest($request);
+        $form = $this->createForm(BookingType::class, $booking);
+        $form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid()) {
-      $booking->setBooker($this->getUser())->setAd($ad);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $booking->setBooker($this->getUser())->setAd($ad);
 
-      $manager->persist($booking);
-      $manager->flush();
+            $manager->persist($booking);
+            $manager->flush();
+        }
+
+        return $this->render('booking/book.html.twig', [
+            'form' => $form->createView(),
+            'ad' => $ad,
+        ]);
     }
-
-    return $this->render("booking/book.html.twig", [
-      "form" => $form->createView(),
-      "ad" => $ad,
-    ]);
-  }
 }
