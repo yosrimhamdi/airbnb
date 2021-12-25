@@ -9,6 +9,26 @@
     <div class="container mt-4">
         <h1 class="mb-4">Your Booking (N° {{ booking.id }})</h1>
 
+        {% if app.flashes and pp.flashes.bookSuccess %}
+            <div class="alert alert-success">
+                <h4 class="alert-heading">Congrants!</h4>
+                <p>
+                    Your book via 
+                    <strong>
+                        <a href="{{ path("user_show", { "slug": author.slug }) }}">
+                            {{ author.fullName }}
+                        </a>
+                        for the ad
+                        <strong>
+                            <a href="{{ path("ads_show", { "slug": ad.slug }) }}">
+                                {{ ad.title }}
+                            </a>
+                            is done
+                        </strong>
+                    </strong>
+                </p>
+            </div>
+        {% endif %}
         <div class="row">
             <div class="col">
                 <div class="alert mb-2" style="background-color: rgb(248, 248, 248)">

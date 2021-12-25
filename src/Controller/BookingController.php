@@ -34,6 +34,8 @@ class BookingController extends AbstractController {
             $manager->persist($booking);
             $manager->flush();
 
+            $this->addFlash('bookSuccess', true);
+
             return redirectToRoute('booking_show', ['id' => $booking->getId()]);
         }
 
