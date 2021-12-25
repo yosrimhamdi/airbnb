@@ -79,7 +79,7 @@ class AppFixtures extends Fixture {
                 ->setPrice(mt_rand(300, 1400))
                 ->setIntroduction($faker->sentence(7))
                 ->setContent($content)
-                ->setcoverImage($faker->imageUrl(1980, 700, true))
+                ->setCoverImage($faker->imageUrl(1980, 700, true))
                 ->setRooms(mt_rand(2, 5))
                 ->setUser($users[mt_rand(0, count($users) - 1)]);
 
