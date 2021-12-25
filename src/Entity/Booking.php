@@ -139,7 +139,7 @@ class Booking {
      *
      * @return void
      */
-    private function prePersist() {
+    public function prePersist() {
         $numberOfNights = $this->getNumberOfNights();
 
         $this->createdAt = new \DateTime();
