@@ -9,7 +9,7 @@
     <div class="container mt-4">
         <h1 class="mb-4">Your Booking (N° {{ booking.id }})</h1>
 
-        {% if app.flashes and pp.flashes.bookSuccess %}
+        {% if app.flashes and app.flashes.bookSuccess %}
             <div class="alert alert-success">
                 <h4 class="alert-heading">Congrants!</h4>
                 <p>
