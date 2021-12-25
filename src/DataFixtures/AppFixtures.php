@@ -46,7 +46,7 @@ class AppFixtures extends Fixture {
 
         $users = [$adminUser];
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 5; $i < 10; $i++) {
             $description =
                 '<p>' . join('<p></p>', $faker->paragraphs()) . '</p>';
 
@@ -71,7 +71,7 @@ class AppFixtures extends Fixture {
             $manager->persist($user);
         }
 
-        for ($j = 1; $j <= mt_rand(0, 15); $j++) {
+        for ($j = 1; $j <= mt_rand(20, 25); $j++) {
             $content = '<p>' . join('<p></p>', $faker->paragraphs(5)) . '</p>';
 
             $ad = new Ad();
@@ -79,7 +79,7 @@ class AppFixtures extends Fixture {
                 ->setPrice(mt_rand(300, 1400))
                 ->setIntroduction($faker->sentence(7))
                 ->setContent($content)
-                ->setcoverImage($faker->imageUrl(1980, 700, true))
+                ->setCoverImage($faker->imageUrl(1980, 700, true))
                 ->setRooms(mt_rand(2, 5))
                 ->setUser($users[mt_rand(0, count($users) - 1)]);
 
@@ -95,7 +95,7 @@ class AppFixtures extends Fixture {
                 $manager->persist($image);
             }
 
-            for ($p = 0; $p < mt_rand(0, 5); $p++) {
+            for ($p = 0; $p < mt_rand(15, 20); $p++) {
                 $createdAt = $faker->dateTimeBetween('-3 months');
                 $startDate = $faker->dateTimeBetween($createdAt);
                 $nbrDays = mt_rand(2, 7);
