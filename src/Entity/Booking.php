@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\BookingRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\BetweenBoundariesDays;
+use App\Repository\BookingRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -11,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\HasLifecycleCallbacks()
  */
 class Booking {
+    use BetweenBoundariesDays;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -147,5 +149,22 @@ class Booking {
 
         $this->createdAt = new \DateTime();
         $this->amount = $this->ad->getPrice() * $numberOfNights;
+    }
+
+    public function isBookable() {
+        $notAvailableDays = $this->ad->getNotAvailableDays();
+
+        $days = $this->getBetweenBoundariesDays(
+            $this->startDate,
+            $this->endDate
+        );
+
+        foreach ($days as $day) {
+            if (in_array($day, $notAvailableDays)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
